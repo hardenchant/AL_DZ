@@ -16,19 +16,27 @@ private:
 	int bill;
 	int paid;
 public:
-	Home(string num, int ten) : Abstract(num) { tenants = ten; };
+	Home(string num, int ten) : Abstract(num) { tenants = ten; paid = 0; };
 	~Home() { this_services.clear(); };
 	void InsertBill();
 	void SetPaid(int);
 	void InsertServices(string);
 	friend ostream& operator<<(ostream&, const Home&);
+	friend istream& operator>> (istream&, Home&);
 	void SetTenants(int);
 	void save();
+	int debt();
+	map<string, int> getServices() { return this_services; }
 	
 };
 ostream& operator<<(ostream& os, const Home& hm){
-	os << "Дом номер " << hm.Name << endl << "\tКоличество жильцов: " << hm.tenants << endl << "\tДолг: " << hm.paid << endl;
+	os <<  hm.Name << endl <<  hm.tenants << endl <<  hm.paid << endl;
 	return os;
+}
+
+istream& operator>> (istream& is, Home& hm){
+	is >> hm.Name >> hm.tenants >> hm.paid;
+	return is;
 }
 
 void Home::InsertServices(string usl){
@@ -56,3 +64,6 @@ void Home::save() {
 	fout.close();
 }
 
+int Home::debt() {
+	return bill - paid;
+}
