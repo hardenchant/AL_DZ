@@ -1,4 +1,4 @@
-//#include "vector"
+
 #include "Home.h"
 
 extern vector <string> history;
@@ -8,6 +8,7 @@ private:
 	vector<Home*> Spisok;
 	int amount;
 public:
+	string getName() { return Name; }
 	~Street(){ Spisok.clear(); }
 	Street(string name) : Abstract(name) { amount = 0; };
 	void InsertHouse(Home&);

@@ -17,12 +17,15 @@ private:
 	int bill;
 	int paid;
 public:
+	string getName() { return Name; }
 	Home(){  }
-	Home(string num, int ten) : Abstract(num) { tenants = ten; paid = 0; bill = 0; };
+	Home(string num, int ten) : Abstract(num) { 
+	tenants = ten; paid = 0; bill = 0; };
 	~Home() { this_services.clear(); };
 	void InsertBill();
 	void SetPaid(int);
 	void InsertServices(string);
+	void DeleteServices(string);
 	friend ostream& operator<<(ostream&, const Home&);
 	friend istream& operator>> (istream&, Home&);
 	void SetTenants(int);
@@ -47,7 +50,12 @@ void Home::InsertServices(string usl){
 	string temp = "К дому номер " + Name + " подключена услуга " + usl;
 	history.push_back(temp);
 }
-
+void Home::DeleteServices(string usl){
+	auto it = this_services.find(usl);
+	this_services.erase(it);
+	string temp = "В доме номер " + Name + " отключена услуга " + usl;
+	history.push_back(temp);
+}
 void Home::InsertBill() {
 	for (auto v : this_services) 
 		bill += v.second*tenants;
@@ -65,8 +73,8 @@ void Home::SetPaid(int money) {
 
 void Home::SetTenants(int num) {
 	tenants = num;
-	string temp = "Количество жильцов дома номер " + Name + " изменено на " + to_string(num);
-	history.push_back(temp);
+	//string tt = "Количество жильцов дома номер " + Name + " изменено на " + to_string(num);
+	//history.push_back(tt);
 }
 
 void Home::save() {

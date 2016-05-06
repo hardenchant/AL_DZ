@@ -8,8 +8,6 @@ vector <string> history;
 class Abstract {
 protected:
 	string Name;
-	//static vector <string> history;
-
 public:
 	Abstract() {}
 	string getName() {return Name; }
