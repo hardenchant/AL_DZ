@@ -1,15 +1,19 @@
 #include <string>
 #include <iostream>
+#include <vector>
 
 using namespace std;
+vector <string> history;
 
 class Abstract {
 protected:
 	string Name;
+	//static vector <string> history;
+
 public:
+	Abstract() {}
 	string getName() {return Name; }
 	Abstract(string);
-	~Abstract() { cout << "DESTROY" << endl; }
 	virtual void save() = 0;
 };
 Abstract::Abstract(string name) { Name = name; };

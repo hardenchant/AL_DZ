@@ -3,6 +3,7 @@
 #include <fstream>
 
 using namespace std;
+extern vector <string> history;
 
 map <string, int> services = {  { "Electricity", 37 },
 								{ "HotWater", 40 },
@@ -16,7 +17,8 @@ private:
 	int bill;
 	int paid;
 public:
-	Home(string num, int ten) : Abstract(num) { tenants = ten; paid = 0; };
+	Home(){  }
+	Home(string num, int ten) : Abstract(num) { tenants = ten; paid = 0; bill = 0; };
 	~Home() { this_services.clear(); };
 	void InsertBill();
 	void SetPaid(int);
@@ -25,43 +27,58 @@ public:
 	friend istream& operator>> (istream&, Home&);
 	void SetTenants(int);
 	void save();
+	void read(string);
 	int debt();
 	map<string, int> getServices() { return this_services; }
 	
 };
 ostream& operator<<(ostream& os, const Home& hm){
-	os <<  hm.Name << endl <<  hm.tenants << endl <<  hm.paid << endl;
+	os << hm.Name << endl << hm.tenants << endl << hm.paid << endl << hm.bill << endl;
 	return os;
 }
 
 istream& operator>> (istream& is, Home& hm){
-	is >> hm.Name >> hm.tenants >> hm.paid;
+	is >> hm.Name >> hm.tenants >> hm.paid >> hm.bill;
 	return is;
 }
 
 void Home::InsertServices(string usl){
 	this_services[usl] = services[usl];
+	string temp = "К дому номер " + Name + " подключена услуга " + usl;
+	history.push_back(temp);
 }
 
 void Home::InsertBill() {
 	for (auto v : this_services) 
 		bill += v.second*tenants;
 	cout << "Счет дома номер " << Name << " составляет " << bill << endl;
+	string temp = "Выставлен счет для дома номер " + Name + " в размере " + to_string(bill);
+	history.push_back(temp);
 }
 
 void Home::SetPaid(int money) {
 	paid += money;
 	cout << "На данный момент за услуги дома номер " << Name << " внесено " << paid << endl;
+	string temp = "За услуги дома номер " + Name + " внесено " + to_string(money) + " рублей.";
+	history.push_back(temp);
 }
 
 void Home::SetTenants(int num) {
 	tenants = num;
+	string temp = "Количество жильцов дома номер " + Name + " изменено на " + to_string(num);
+	history.push_back(temp);
 }
 
 void Home::save() {
 	ofstream fout("cppstudio.txt");
 	fout << *this;
 	fout.close();
+}
+
+void Home::read(string name) {
+	ifstream fin("cppstudio.txt");
+	fin >> *this;
+	fin.close();
 }
 
 int Home::debt() {
