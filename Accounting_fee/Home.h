@@ -60,33 +60,33 @@ void Home::Set(string name, int num) {
 
 void Home::InsertServices(string usl) {
 	this_services[usl] = services[usl];
-	string temp = "К дому номер " + Name + " подключена услуга " + usl;
+	string temp = "Рљ РґРѕРјСѓ РЅРѕРјРµСЂ " + Name + " РїРѕРґРєР»СЋС‡РµРЅР° СѓСЃР»СѓРіР° " + usl;
 	history.push_back(temp);
 }
 void Home::DeleteServices(string usl) {
 	auto it = this_services.find(usl);
 	this_services.erase(it);
-	string temp = "В доме номер " + Name + " отключена услуга " + usl;
+	string temp = "Р’ РґРѕРјРµ РЅРѕРјРµСЂ " + Name + " РѕС‚РєР»СЋС‡РµРЅР° СѓСЃР»СѓРіР° " + usl;
 	history.push_back(temp);
 }
 void Home::InsertBill() {
 	for (auto v : this_services)
 		bill += v.second*tenants;
-	cout << "Счет дома номер " << Name << " составляет " << bill << endl;
-	string temp = "Выставлен счет для дома номер " + Name + " в размере " + to_string(bill);
+	cout << "РЎС‡РµС‚ РґРѕРјР° РЅРѕРјРµСЂ " << Name << " СЃРѕСЃС‚Р°РІР»СЏРµС‚ " << bill << endl;
+	string temp = "Р’С‹СЃС‚Р°РІР»РµРЅ СЃС‡РµС‚ РґР»СЏ РґРѕРјР° РЅРѕРјРµСЂ " + Name + " РІ СЂР°Р·РјРµСЂРµ " + to_string(bill);
 	history.push_back(temp);
 }
 
 void Home::SetPaid(int money) {
 	paid += money;
-	cout << "На данный момент за услуги дома номер " << Name << " внесено " << paid << endl;
-	string temp = "За услуги дома номер " + Name + " внесено " + to_string(money) + " рублей.";
+	cout << "РќР° РґР°РЅРЅС‹Р№ РјРѕРјРµРЅС‚ Р·Р° СѓСЃР»СѓРіРё РґРѕРјР° РЅРѕРјРµСЂ " << Name << " РІРЅРµСЃРµРЅРѕ " << paid << endl;
+	string temp = "Р—Р° СѓСЃР»СѓРіРё РґРѕРјР° РЅРѕРјРµСЂ " + Name + " РІРЅРµСЃРµРЅРѕ " + to_string(money) + " СЂСѓР±Р»РµР№.";
 	history.push_back(temp);
 }
 
 void Home::SetTenants(int num) {
 	tenants = num;
-	string tt = "Количество жильцов дома номер " + Name + " изменено на " + to_string(num);
+	string tt = "РљРѕР»РёС‡РµСЃС‚РІРѕ Р¶РёР»СЊС†РѕРІ РґРѕРјР° РЅРѕРјРµСЂ " + Name + " РёР·РјРµРЅРµРЅРѕ РЅР° " + to_string(num);
 	history.push_back(tt);
 }
 
