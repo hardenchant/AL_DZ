@@ -10,7 +10,7 @@ protected:
 	string Name;
 public:
 	Abstract() {}
-	string getName() {return Name; }
+	string getName() { return Name; }
 	Abstract(string);
 	virtual void save() = 0;
 };
