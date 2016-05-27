@@ -1,4 +1,4 @@
-
+п»ї
 #include "Home.h"
 #include <sstream>
 
@@ -31,20 +31,20 @@ Home& Street:: operator[] (string name) {
 		{
 			return *Spisok[i]; break;
 		}
-	if (save == amount) throw "Дом с таким номером не найден.";
+	if (save == amount) throw "Р”РѕРј СЃ С‚Р°РєРёРј РЅРѕРјРµСЂРѕРј РЅРµ РЅР°Р№РґРµРЅ.";
 }
 
 void Street::InsertHouse(Home *hm) {
 	Spisok.push_back(hm);
 	amount++;
-	string temp = "К улице " + Name + " добавлен дом номер " + hm->getName();
+	string temp = "Рљ СѓР»РёС†Рµ " + Name + " РґРѕР±Р°РІР»РµРЅ РґРѕРј РЅРѕРјРµСЂ " + hm->getName();
 	history.push_back(temp);
 }
 
 ostream& operator<<(ostream& os, const Street& st) {
 	os << st.Name << " " << st.amount << endl;
 	
-	if (st.amount == 0) { throw "Список домов пуст."; }
+	if (st.amount == 0) { throw "РЎРїРёСЃРѕРє РґРѕРјРѕРІ РїСѓСЃС‚."; }
 	else {
 		for (auto &v : st.Spisok)
 			os << *v;
@@ -71,7 +71,7 @@ istream& operator>> (istream& is, Street& st)
 void Street::save() {
 	ofstream fout("cppstudio.txt");
 	if (!fout.is_open()) 
-		throw "Файл для записи не может быть открыт!";
+		throw "Р¤Р°Р№Р» РґР»СЏ Р·Р°РїРёСЃРё РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РѕС‚РєСЂС‹С‚!";
 	else {
 		fout << *this;
 		fout.close();
@@ -85,7 +85,7 @@ void Street::read() {
 }
 
 void Street::DeleteHouse(string name) {
-	if (amount == 0) { throw "Список домов пуст."; }
+	if (amount == 0) { throw "РЎРїРёСЃРѕРє РґРѕРјРѕРІ РїСѓСЃС‚."; }
 	else {
 		int save = amount;
 		for (int i = 0; i < amount; i++)
@@ -95,32 +95,32 @@ void Street::DeleteHouse(string name) {
 				Spisok.erase(Spisok.begin() + i);
 				break;
 			}
-		if (save == amount) throw "Дом с таким номером не найден.";
-		string temp = "С улицы " + Name + " удален дом номер " + name;
+		if (save == amount) throw "Р”РѕРј СЃ С‚Р°РєРёРј РЅРѕРјРµСЂРѕРј РЅРµ РЅР°Р№РґРµРЅ.";
+		string temp = "РЎ СѓР»РёС†С‹ " + Name + " СѓРґР°Р»РµРЅ РґРѕРј РЅРѕРјРµСЂ " + name;
 	}
 
 }
 
 void Street::SearchDebtors() {
 	int save=0;
-	cout << "Список должников: " << endl;
-	string temp = "Подведен список должников: ";
+	cout << "РЎРїРёСЃРѕРє РґРѕР»Р¶РЅРёРєРѕРІ: " << endl;
+	string temp = "РџРѕРґРІРµРґРµРЅ СЃРїРёСЃРѕРє РґРѕР»Р¶РЅРёРєРѕРІ: ";
 	for (int i = 0; i < amount; i++)
 		if (Spisok[i]->debt()>0) {
-			cout << "\tЖильцы дома номер " << Spisok[i]->getName() << " должны " << Spisok[i]->debt() << " рублей." << endl;
+			cout << "\tР–РёР»СЊС†С‹ РґРѕРјР° РЅРѕРјРµСЂ " << Spisok[i]->getName() << " РґРѕР»Р¶РЅС‹ " << Spisok[i]->debt() << " СЂСѓР±Р»РµР№." << endl;
 			temp += Spisok[i]->getName() + " , ";
 			save++;
 		}
 	if (save == 0) {
-		throw "Список должников пуст";
-		temp += " список должиков пуст.";
+		throw "РЎРїРёСЃРѕРє РґРѕР»Р¶РЅРёРєРѕРІ РїСѓСЃС‚";
+		temp += " СЃРїРёСЃРѕРє РґРѕР»Р¶РёРєРѕРІ РїСѓСЃС‚.";
 	}
 	history.push_back(temp);
 }
 
 void Street::SearchService(string usl) {
 	int save = 0;
-	cout << "Список домов с подключенной данной услугой: " << endl;
+	cout << "РЎРїРёСЃРѕРє РґРѕРјРѕРІ СЃ РїРѕРґРєР»СЋС‡РµРЅРЅРѕР№ РґР°РЅРЅРѕР№ СѓСЃР»СѓРіРѕР№: " << endl;
 	for (int i = 0; i < amount; i++) {
 		for (auto v : Spisok[i]->getServices()) {
 			if (v.first == usl) {
@@ -130,7 +130,7 @@ void Street::SearchService(string usl) {
 			break;
 		}
 	}
-	if (save == 0) { throw "Не найдено домов с подключенной данной услугой."; }
+	if (save == 0) { throw "РќРµ РЅР°Р№РґРµРЅРѕ РґРѕРјРѕРІ СЃ РїРѕРґРєР»СЋС‡РµРЅРЅРѕР№ РґР°РЅРЅРѕР№ СѓСЃР»СѓРіРѕР№."; }
 }
 
 void Street::InsertAllBills() {

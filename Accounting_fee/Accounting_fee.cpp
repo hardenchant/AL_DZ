@@ -1,4 +1,4 @@
-// Accounting_fee.cpp: определ¤ет точку входа дл¤ консольного приложени¤.
+// Accounting_fee.cpp: определяет точку входа для консольного приложения.
 //
 
 #include "stdafx.h"
@@ -12,11 +12,11 @@
 int _tmain(int argc, _TCHAR* argv[])
 {
 	setlocale(LC_ALL, "");
-	Street street("Ѕауманска¤");
+	Street street("Бауманская");
 
 	street.read();
 
-	//for (string v : history) //»стори¤ сессии
+	//for (string v : history) //История сессии
 	//	cout << v << endl;
 
 	int command;
@@ -24,37 +24,37 @@ int _tmain(int argc, _TCHAR* argv[])
 	string temp1, temp3;
 	int temp2;
 
-	cout << "—охранение и восстановление данных ведетс¤ автоматически.\n\n¬ыберите номер необходимой команды: \n\t1. ¬несение нового дома в базу учета.\n\t2. ”даление дома из системы учета. \n\t3. ѕодключение/отключение услуги ∆ ’ в конкретном доме.\n\t4. »зменение количества жильцов в конкретном доме.\n\t5. ¬ыставление счета на оплату за мес¤ц.\n\t6. «анесение данных об оплате услуг за мес¤ц. \n\t7. ќпределение должников.\n\t8. ѕросмотр домов с подключенной услугой.\n\t9. ѕросмотр всех домов улицы. ƒл¤ ¬џ’ќƒј из программы нажмите 0.\n";
+	cout << "Сохранение и восстановление данных ведется автоматически.\n\nВыберите номер необходимой команды: \n\t1. Внесение нового дома в базу учета.\n\t2. Удаление дома из системы учета. \n\t3. Подключение/отключение услуги ЖКХ в конкретном доме.\n\t4. Изменение количества жильцов в конкретном доме.\n\t5. Выставление счета на оплату за месяц.\n\t6. Занесение данных об оплате услуг за месяц. \n\t7. Определение должников.\n\t8. Просмотр домов с подключенной услугой.\n\t9. Просмотр всех домов улицы. Для ВЫХОДА из программы нажмите 0.\n";
 	
 	try {
 		cin >> command;
 		if (command != 1 && command != 2 && command != 3 && command != 4 && command != 5 && command != 6 && command != 7 && command != 8 && command != 9 && command != 0) {
-			throw "¬веден неверный номер команды.";
+			throw "Введен неверный номер команды.";
 		}
 	}
 	catch (char* str) {
 		cout << str << endl;
-		cout << "¬ведите следующую команду: ";
+		cout << "Введите следующую команду: ";
 		command = -1;
 	}
 	if (command == -1) cin >> command;
 	do {
 		
 		if (command == 1) {
-			cout << "¬ведите номер дома и количество жильцов: " << endl;
+			cout << "Введите номер дома и количество жильцов: " << endl;
 			scanf("%s %d", &buf, &temp2);
 			temp1 = (const char*)buf;
 			Home* temp = new Home(temp1, temp2);
 			street.InsertHouse(temp);
 		}
 		if (command == 2) {
-			cout << "¬ведите номер дома: " << endl;
+			cout << "Введите номер дома: " << endl;
 			cin >> temp1;
 			try { street.DeleteHouse(temp1); }
 			catch (char* str) { cout << str<<endl; }
 		}
 		if (command == 3) {
-			cout << "ƒл¤ ƒќЅј¬Ћ≈Ќ»я услуги введите 1_номер дома_название услуги,\n дл¤ ”ƒјЋ≈Ќ»я - 0_номер дома_название услуги.\n\t—писок услуг: HotWater, ColdWater, Electricity, Repair.\n" << endl;
+			cout << "Для ДОБАВЛЕНИЯ услуги введите 1_номер дома_название услуги,\n для УДАЛЕНИЯ - 0_номер дома_название услуги.\n\tСписок услуг: HotWater, ColdWater, Electricity, Repair.\n" << endl;
 			scanf("%d %s %s", &temp2, &buf, &buf2);
 			temp1 = (const char*)buf;
 			temp3 = (const char*)buf2;
@@ -70,7 +70,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			}
 		}
 		if (command == 4) {
-			cout << "¬ведите номер дома и новое количество жильцов:" << endl;
+			cout << "Введите номер дома и новое количество жильцов:" << endl;
 			scanf("%s %d", &buf, &temp2);
 			temp1 = (const char*)buf;
 			try { street[temp1].SetTenants(temp2); }
@@ -80,7 +80,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			street.InsertAllBills();
 		}
 		if (command == 6) {
-			cout << "¬ведите номер дома и внесенную сумму: " << endl;
+			cout << "Введите номер дома и внесенную сумму: " << endl;
 			scanf("%s %d", &buf, &temp2);
 			temp1 = (const char*)buf;
 			try { street[temp1].SetPaid(temp2); }
@@ -91,7 +91,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			catch (char* str) { cout << str << endl; }
 		}
 		if (command == 8) {
-			cout << "¬ведите название услуги: " << endl;
+			cout << "Введите название услуги: " << endl;
 			scanf("%s", &buf);
 			temp1 = (const char*)buf;
 			try { street.SearchService(temp1); }
@@ -106,14 +106,14 @@ int _tmain(int argc, _TCHAR* argv[])
 			
 		try { street.save(); }
 		catch (char*str) { cout << str << endl; }
-		cout << "¬ведите следующую команду: ";
+		cout << "Введите следующую команду: ";
 		try { cin >> command;
 		if (command != 1 && command != 2 && command != 3 && command != 4 && command != 5 && command != 6 && command != 7 &&command != 8 && command != 9 && command != 0) {
-			throw "¬веден неверный номер команды.";
+			throw "Введен неверный номер команды.";
 		}
 		}
 		catch(char* str) { cout << str << endl;
-		cout << "¬ведите следующую команду: ";
+		cout << "Введите следующую команду: ";
 		command = -1;
 		}
 		if (command == -1) cin >> command;
