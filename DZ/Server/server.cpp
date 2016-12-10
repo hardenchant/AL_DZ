@@ -5,7 +5,7 @@ acc.reset(new Acceptor(m_ios));
 }
 
 void Server::Start(){
-    emit acc->PortOK(acc->PortNum().port());
+    emit acc->PortOK(acc->PortNum().port()); //хорошо бы отделить qt от серверной части
     emit acc->col_clientchanged(0);
 
 
