@@ -1,11 +1,11 @@
-#include "server.h"
+ï»¿#include "server.h"
 
 Server::Server() {
 acc.reset(new Acceptor(m_ios));
 }
 
 void Server::Start(){
-    emit acc->PortOK(acc->PortNum().port()); //õîðîøî áû îòäåëèòü qt îò ñåðâåðíîé ÷àñòè
+    emit acc->PortOK(acc->PortNum().port()); //Ñ…Ð¾Ñ€Ð¾ÑˆÐ¾ Ð±Ñ‹ Ð¾Ñ‚Ð´ÐµÐ»Ð¸Ñ‚ÑŒ qt Ð¾Ñ‚ ÑÐµÑ€Ð²ÐµÑ€Ð½Ð¾Ð¹ Ñ‡Ð°ÑÑ‚Ð¸
     emit acc->col_clientchanged(0);
 
 
