@@ -1,4 +1,4 @@
-#include <cstdlib>
+п»ї#include <cstdlib>
 #include <cstring>
 #include <iostream>
 #include <boost/asio.hpp>
@@ -31,38 +31,38 @@ int main(int argc, char* argv[])
 
         using namespace std;
         for(;;){
-            char reply[max_length];		// поменять бы имя переменной
+            char reply[max_length];		// РїРѕРјРµРЅСЏС‚СЊ Р±С‹ РёРјСЏ РїРµСЂРµРјРµРЅРЅРѕР№
             auto buf = make_shared<boost::asio::streambuf>();
             boost::asio::read_until(s, *buf, '\n');
             std::istream stream(buf.get());
              stream.getline(reply, max_length);
             std::cout << "Data recieve " << reply << std::endl;
-            string str= reply;		//можно сразу писать в str
+            string str= reply;		//РјРѕР¶РЅРѕ СЃСЂР°Р·Сѓ РїРёСЃР°С‚СЊ РІ str
             char *request = new char[max_length]();
 
-            BOOST_SCOPE_EXIT((request)){  // зачем это нужно? unique_ptr в помощь
+            BOOST_SCOPE_EXIT((request)){  // Р·Р°С‡РµРј СЌС‚Рѕ РЅСѓР¶РЅРѕ? unique_ptr РІ РїРѕРјРѕС‰СЊ 
                 delete[] request;
            } BOOST_SCOPE_EXIT_END
 
             if (reply[0]<=57 && reply[0] > 48) {	//isdigit(reply[0]) ?
                 string ch = "";
-                string st = "";	//лучше назвать попонятнее ch -> number, st -> degree
+                string st = "";	//Р»СѓС‡С€Рµ РЅР°Р·РІР°С‚СЊ РїРѕРїРѕРЅСЏС‚РЅРµРµ ch -> number, st -> degree
                 auto found = str.find('^');
                 ch = str.substr(0, found);
                 st = str.substr(found + 1, str.size() - found);
 
-                mpz_class ch1;	//по именам переменных ничего не понятно со стороны
+                mpz_class ch1;	//РїРѕ РёРјРµРЅР°Рј РїРµСЂРµРјРµРЅРЅС‹С… РЅРёС‡РµРіРѕ РЅРµ РїРѕРЅСЏС‚РЅРѕ СЃРѕ СЃС‚РѕСЂРѕРЅС‹
                 mpz_class st1;
                 mpz_class rez;
                 mpz_init(rez.get_mpz_t());
                 mpz_init(st1.get_mpz_t());
                 mpz_init(ch1.get_mpz_t());
-                mpz_set_str(st1.get_mpz_t(), st.c_str(), 10); //тоесть изначально мы переводили из
-                mpz_set_str(ch1.get_mpz_t(), ch.c_str(), 10); //char* в string а теперь обратно, только для
-															  //того чтобы распарсить?
+                mpz_set_str(st1.get_mpz_t(), st.c_str(), 10); //С‚РѕРµСЃС‚СЊ РёР·РЅР°С‡Р°Р»СЊРЅРѕ РјС‹ РїРµСЂРµРІРѕРґРёР»Рё РёР·
+                mpz_set_str(ch1.get_mpz_t(), ch.c_str(), 10); //char* РІ string Р° С‚РµРїРµСЂСЊ РѕР±СЂР°С‚РЅРѕ, С‚РѕР»СЊРєРѕ РґР»СЏ
+															  //С‚РѕРіРѕ С‡С‚РѕР±С‹ СЂР°СЃРїР°СЂСЃРёС‚СЊ?
                 rez = 1;
                 for (int i = 1; i <= st1; i++) {
-                    rez = rez * ch1;	//в библиотеке есть возведение в степень, наверное оно более эффективно
+                    rez = rez * ch1;	//РІ Р±РёР±Р»РёРѕС‚РµРєРµ РµСЃС‚СЊ РІРѕР·РІРµРґРµРЅРёРµ РІ СЃС‚РµРїРµРЅСЊ, РЅР°РІРµСЂРЅРѕРµ РѕРЅРѕ Р±РѕР»РµРµ СЌС„С„РµРєС‚РёРІРЅРѕ
                 }
 
                 mpz_get_str(request, 10, rez.get_mpz_t());
